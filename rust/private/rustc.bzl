@@ -1485,6 +1485,10 @@ def _create_extra_input_args(build_info, dep_info):
         input_files.append(build_info.out_dir)
         input_files.append(build_info.link_flags)
 
+    for dep_build_info in dep_info.transitive_build_infos.to_list():
+        build_flags_files.append(dep_build_info.link_flags)
+        input_files.append(dep_build_info.link_flags)
+
     return (
         depset(input_files, transitive = [dep_info.link_search_path_files]),
         out_dir,
